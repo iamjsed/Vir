@@ -64,7 +64,7 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
     private void handleNow() { return; }
 
     private void SendNotification(NotificationData notificationData) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, InteractiveVoiceActivity.class);
         intent.putExtra(NotificationData.TEXT, notificationData.getNotificationBody());
         intent.putExtra(NotificationData.DATA, notificationData.getData());
 

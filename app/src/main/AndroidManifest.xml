@@ -28,7 +28,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".EngageLexActivity"></activity>
+        <activity android:name=".EngageLexActivity" />
+        <activity android:name=".InteractiveVoiceActivity"></activity>
     </application>
 
 </manifest>
