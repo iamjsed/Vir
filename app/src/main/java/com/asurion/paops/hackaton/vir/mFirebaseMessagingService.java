@@ -8,6 +8,9 @@ import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.amazonaws.mobileconnectors.lex.interactionkit.ui.InteractiveVoiceView;
+import com.asurion.paops.hackaton.vir.models.LexData;
+import com.asurion.paops.hackaton.vir.models.NotificationData;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -34,11 +37,19 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
         String body = remoteMessage.getNotification().getBody();
         String icon = remoteMessage.getNotification().getIcon();
         String sound = remoteMessage.getNotification().getSound();
+        LexData data = null;
 
         int id = 0;
         Object obj = remoteMessage.getData().get("id");
         if ( obj != null ) {
-            id = Integer.valueOf(obj.toString());
+            data = new LexData(
+                    Integer.valueOf(remoteMessage.getData().get("id")),
+                    remoteMessage.getData().get("bot_name").toString(),
+                    remoteMessage.getData().get("bot_alias").toString(),
+                    remoteMessage.getData().get("utterance").toString()
+            );
+
+
         }
 
 
@@ -47,7 +58,7 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            SendNotification(new NotificationData(id, title, body, sound, icon, remoteMessage.getData().toString()));
+            SendNotification(new NotificationData(id, title, body, sound, icon, data));
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
         }
 
@@ -66,7 +77,9 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
     private void SendNotification(NotificationData notificationData) {
         Intent intent = new Intent(this, InteractiveVoiceActivity.class);
         intent.putExtra(NotificationData.TEXT, notificationData.getNotificationBody());
-        intent.putExtra(NotificationData.DATA, notificationData.getData());
+        intent.putExtra(LexData.BOT_NAME, notificationData.getData().getBot_name());
+        intent.putExtra(LexData.BOT_ALIAS, notificationData.getData().getBot_alias());
+        intent.putExtra(LexData.BOT_UTTERANCE, notificationData.getData().getUtterance());
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

@@ -1,4 +1,4 @@
-package com.asurion.paops.hackaton.vir;
+package com.asurion.paops.hackaton.vir.models;
 
 /**
  * Created by iamjsed on 16/09/2017.
@@ -14,9 +14,9 @@ public class NotificationData {
     private String notificationBody;
     private String soundName;
     private String iconName;
-    private String data;
+    private LexData data;
 
-    public NotificationData(int id, String notificationTitle, String notificationBody, String soundName, String iconName, String payload) {
+    public NotificationData(int id, String notificationTitle, String notificationBody, String soundName, String iconName, LexData payload) {
         this.id = id;
         this.notificationTitle = notificationTitle;
         this.notificationBody = notificationBody;
@@ -65,11 +65,11 @@ public class NotificationData {
         this.iconName = iconName;
     }
 
-    public String getData() {
+    public LexData getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LexData data) {
         this.data = data;
     }
 }

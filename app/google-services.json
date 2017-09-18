@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1085420871506",
+    "firebase_url": "https://calm-grid-141108.firebaseio.com",
+    "project_id": "calm-grid-141108",
+    "storage_bucket": "calm-grid-141108.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085420871506:android:df6349cd8948aece",
+        "android_client_info": {
+          "package_name": "com.asurion.paops.hackaton.vir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085420871506-1pj4ct7plh9tujfcurl1g7peo6j7sfm6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asurion.paops.hackaton.vir",
+            "certificate_hash": "494e8ac9db96b7dc44bd2464d6bcff5d07fb9403"
+          }
+        },
+        {
+          "client_id": "1085420871506-2ktc1quum9cm3in9q5vmmt49c9t6o8qb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKvhF-3JA2lJOO_U9vmwe9eb56TeMv6VE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085420871506-2ktc1quum9cm3in9q5vmmt49c9t6o8qb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
