@@ -13,12 +13,14 @@ public class LexData {
     private int Id;
     private String bot_name;
     private String bot_alias;
+    private String event_data;
     private String utterance;
 
-    public LexData(int id, String bot_name, String bot_alias, String utterance) {
+    public LexData(int id, String bot_name, String bot_alias, String event_data, String utterance) {
         Id = id;
         this.bot_name = bot_name;
         this.bot_alias = bot_alias;
+        this.event_data = event_data;
         this.utterance = utterance;
     }
 
@@ -54,13 +56,18 @@ public class LexData {
         this.utterance = utterance;
     }
 
+    public String getEvent_data() { return event_data; }
+
+    public void setEvent_data(String event_data) { this.event_data = event_data; }
+
     @Override
     public String toString() {
         return "{" +
-                "Id=" + Id +
-                ", bot_name='" + bot_name + '\'' +
-                ", bot_alias='" + bot_alias + '\'' +
-                ", utterance='" + utterance + '\'' +
+                "\"id\"=\"" + Id + "\"" +
+                ", \"bot_name\"=\"" + bot_name + "\"" +
+                ", \"bot_alias\"=\"" + bot_alias + "\"" +
+                ", \"event_data\"=\"" + event_data + "\"" +
+                ", \"utterance\"=\"" + utterance + "\"" +
                 '}';
     }
 }

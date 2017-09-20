@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
@@ -14,24 +15,27 @@ import com.amazonaws.mobileconnectors.lex.interactionkit.ui.InteractiveVoiceView
 import com.amazonaws.regions.Regions;
 import com.amazonaws.util.StringUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 
-public class InteractiveVoiceActivity extends Activity implements InteractiveVoiceView.InteractiveVoiceListener {
+public class InteractiveVoiceActivity extends Activity implements
+        InteractiveVoiceView.InteractiveVoiceListener,
+        TextToSpeech.OnInitListener {
 
     private static final String TAG = "VoiceActivity";
     private Context appContext;
     private InteractiveVoiceView voiceView;
     private TextView transcriptTextView;
     private TextView responseTextView;
-
-    private static final String COGNITO_ID = "0e6d7e2a-8316-414a-aff4-384502a07f10";
-    private static final String AWS_REGION_NAME = "us-east-1";
-
+    TextToSpeech tts;
+    private String speakThis;
     private Bundle extras;
-    private TextToSpeech ttsobj;
-    private final int LANG_US = 1;
+
 
 
     @Override
@@ -43,7 +47,6 @@ public class InteractiveVoiceActivity extends Activity implements InteractiveVoi
         responseTextView = (TextView) findViewById(R.id.responseTextView);
         init();
         StringUtils.isBlank("notempty");
-
     }
 
     @Override
@@ -62,16 +65,25 @@ public class InteractiveVoiceActivity extends Activity implements InteractiveVoi
     }
 
     private void init() {
-
+        JSONObject jObject = null;
         if ( extras != null ) {
-            ttsobj = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                @Override
-                public void onInit(int i) {
-                    ttsobj.setLanguage(Locale.US);
-                }
-            });
+            String payload = getIntent().getStringExtra("DATA");
+            HashMap<String, String> map = new HashMap<String, String>();
 
-            ttsobj.speak("hello", TextToSpeech.QUEUE_FLUSH, null);
+            try {
+                jObject = new JSONObject(payload);
+                speakThis = jObject.getString("utterance");
+                Log.d(TAG, "Message Payload: " + jObject.getString("utterance"));
+                Log.d(TAG, "Event data: " + jObject.getString("event_data"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (jObject != null) {
+
+            tts = new TextToSpeech(getApplicationContext(), this);
 
         }
 
@@ -81,7 +93,7 @@ public class InteractiveVoiceActivity extends Activity implements InteractiveVoi
 
         CognitoCredentialsProvider credentialsProvider = new CognitoCredentialsProvider(
                 appContext.getString(R.string.aws_region) + ":" + appContext.getString(R.string.identity_id_test),
-                Regions.fromName(AWS_REGION_NAME));
+                Regions.fromName(appContext.getString(R.string.aws_region)));
 
         voiceView.getViewAdapter().setCredentialProvider(credentialsProvider);
 
@@ -98,4 +110,11 @@ public class InteractiveVoiceActivity extends Activity implements InteractiveVoi
         voiceView.getViewAdapter().setAwsRegion(appContext.getString(R.string.aws_region));
     }
 
+    @Override
+    public void onInit(int status) {
+        if(status != TextToSpeech.ERROR) {
+            tts.setLanguage(Locale.US);
+            tts.speak(speakThis, TextToSpeech.QUEUE_FLUSH, null, "");
+        }
+    }
 }

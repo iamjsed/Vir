@@ -34,26 +34,6 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.text1);
 
         Log.d(TAG, "Refreshed token: " + refreshedToken);
-        HashMap<String,Object> result = null;
-        if ( extras != null ) {
-            Log.d(TAG, "HashMap: " + getIntent().getStringExtra("DATA"));
-
-            CognitoCredentialsProvider credentialsProvider = new CognitoCredentialsProvider(
-                    getApplicationContext().getString(R.string.aws_region) + ":" + getApplicationContext().getString(R.string.identity_id_test),
-                    Regions.fromName(getApplicationContext().getString(R.string.aws_region)));
-
-//            InteractionClient lexInteractionClient = new InteractionClient(
-//                    getApplicationContext(),
-//                    credentialsProvider,
-//                    Regions.fromName(getApplicationContext().getResources().getString(R.string.aws_region)),
-//                    getApplicationContext().getResources().getString(R.string.bot_name),
-//                    getApplicationContext().getResources().getString(R.string.bot_alias));
-//            lexInteractionClient.setAudioPlaybackListener(audioPlaybackListener);
-//            lexInteractionClient.setInteractionListener(interactionListener);
-
-
-        }
-        textView.setText("Hello World");
 
         btnTest.setOnClickListener(new View.OnClickListener(){
 

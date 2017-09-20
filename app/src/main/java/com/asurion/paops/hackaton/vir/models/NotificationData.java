@@ -16,13 +16,12 @@ public class NotificationData {
     private String iconName;
     private LexData data;
 
-    public NotificationData(int id, String notificationTitle, String notificationBody, String soundName, String iconName, LexData payload) {
+    public NotificationData(int id, String notificationTitle, String notificationBody, String soundName, String iconName) {
         this.id = id;
         this.notificationTitle = notificationTitle;
         this.notificationBody = notificationBody;
         this.soundName = soundName;
         this.iconName = iconName;
-        this.data = payload;
     }
 
     public int getId() {
@@ -65,11 +64,4 @@ public class NotificationData {
         this.iconName = iconName;
     }
 
-    public LexData getData() {
-        return data;
-    }
-
-    public void setData(LexData data) {
-        this.data = data;
-    }
 }

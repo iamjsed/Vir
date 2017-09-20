@@ -25,6 +25,9 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FBMsgSvc";
 
+    String payload;
+    LexData lexData;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
@@ -37,29 +40,26 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
         String body = remoteMessage.getNotification().getBody();
         String icon = remoteMessage.getNotification().getIcon();
         String sound = remoteMessage.getNotification().getSound();
-        LexData data = null;
 
         int id = 0;
         Object obj = remoteMessage.getData().get("id");
         if ( obj != null ) {
-            data = new LexData(
-                    Integer.valueOf(remoteMessage.getData().get("id")),
-                    remoteMessage.getData().get("bot_name").toString(),
-                    remoteMessage.getData().get("bot_alias").toString(),
-                    remoteMessage.getData().get("utterance").toString()
+            lexData = new LexData(
+                    Integer.valueOf(obj.toString()),
+                    remoteMessage.getData().get("bot_name"),
+                    remoteMessage.getData().get("bot_alias"),
+                    remoteMessage.getData().get("event_data"),
+                    remoteMessage.getData().get("utterance")
             );
 
+            id = Integer.valueOf(obj.toString());
 
         }
 
-
-
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            SendNotification(new NotificationData(id, title, body, sound, icon, data));
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            SendNotification(new NotificationData(id, title, body, sound, icon));
         }
 
         // Check if message contains a notification payload.
@@ -77,9 +77,7 @@ public class mFirebaseMessagingService extends FirebaseMessagingService {
     private void SendNotification(NotificationData notificationData) {
         Intent intent = new Intent(this, InteractiveVoiceActivity.class);
         intent.putExtra(NotificationData.TEXT, notificationData.getNotificationBody());
-        intent.putExtra(LexData.BOT_NAME, notificationData.getData().getBot_name());
-        intent.putExtra(LexData.BOT_ALIAS, notificationData.getData().getBot_alias());
-        intent.putExtra(LexData.BOT_UTTERANCE, notificationData.getData().getUtterance());
+        intent.putExtra(NotificationData.DATA, lexData.toString());
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
