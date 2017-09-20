@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Vir</string>
-    <string name="bot_name">BaeBot</string>
+    <string name="app_name">Voice Incident Remediation</string>
+    <string name="bot_name">StartanInstace</string>
     <string name="bot_alias">$LATEST</string>
     <string name="identity_id_test">0e6d7e2a-8316-414a-aff4-384502a07f10</string>
     <string name="aws_region">us-east-1</string>

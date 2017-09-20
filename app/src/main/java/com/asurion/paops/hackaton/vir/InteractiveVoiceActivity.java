@@ -52,16 +52,28 @@ public class InteractiveVoiceActivity extends Activity implements
     @Override
     public void dialogReadyForFulfillment(Map<String, String> slots, String intent) {
 
+        Log.d(TAG, String.format(
+                Locale.US,
+                "Dialog ready for fulfillment:\n\tIntent: %s\n\tSlots: %s",
+                intent,
+                slots.toString()));
+
     }
 
     @Override
     public void onResponse(Response response) {
 
+        Log.d(TAG, "Bot response: " + response.getTextResponse());
+        Log.d(TAG, "Transcript: " + response.getInputTranscript());
+
+        responseTextView.setText(response.getTextResponse());
+        transcriptTextView.setText(response.getInputTranscript());
+
     }
 
     @Override
     public void onError(String responseText, Exception e) {
-
+        Log.e(TAG, "Error: " + responseText, e);
     }
 
     private void init() {
