@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCredentialsProvider;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main";
     TextView textView;
     Button btnTest;
+    EditText edtText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,13 @@ public class MainActivity extends AppCompatActivity {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         btnTest = (Button) findViewById(R.id.button2);
         textView = (TextView) findViewById(R.id.text1);
+        edtText = (EditText) findViewById(R.id.editText);
 
         Log.d(TAG, "Refreshed token: " + refreshedToken);
+
+        textView.setText("FCM Token");
+
+        edtText.setText(refreshedToken);
 
         btnTest.setOnClickListener(new View.OnClickListener(){
 
