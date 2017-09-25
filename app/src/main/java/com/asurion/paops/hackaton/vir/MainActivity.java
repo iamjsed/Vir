@@ -43,15 +43,12 @@ public class MainActivity extends AppCompatActivity {
         edtText.setText(refreshedToken);
 
         btnTest.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InteractiveVoiceActivity.class);
                 startActivity(intent);
             }
-
         });
-
 
     }
 

@@ -15,20 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="46dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/text1"
         android:ems="10"
         android:inputType="textCapSentences|textMultiLine"
         android:singleLine="false"
         android:selectAllOnFocus="true"
-        android:text="Name" />
+        android:text="Name"
+        android:layout_below="@+id/text1"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/button2" />
 
 </RelativeLayout>
